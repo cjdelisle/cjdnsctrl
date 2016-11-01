@@ -56,8 +56,8 @@ const parse = module.exports.parse = (buf, type) => {
     }
     let remainder = buf.slice(8);
     if (type.indexOf('KEY') === 0) {
-        out.key = Cjdnskeys.keyBytesToString(remainder.slice(0, 64));
-        remainder = remainder.slice(64);
+        out.key = Cjdnskeys.keyBytesToString(remainder.slice(0, 32));
+        remainder = remainder.slice(32);
     }
     out.content = remainder;
     return out;
