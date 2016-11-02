@@ -41,12 +41,6 @@ const GOLDS = [
         parsed: {
             type: 'KEYPING',
             version: 18,
-            key: '3fdqgz2vtqb0wx02hhvx3wjmjqktyt567fcuvj3m72vw5u6ubu740k3m22fplqvqwpspy93.k',
-            content: new Buffer(0)
-        },
-        parsed: {
-            type: 'KEYPING',
-            version: 18,
             key: '3fdqgz2vtqb0wx02hhvx3wjmjqktyt567fcuvj3m72vw5u6ubu70.k',
             content: new Buffer("02e29842b42aedb6bce2ead3", "hex")
         }
