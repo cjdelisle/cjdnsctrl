@@ -42,19 +42,28 @@ const parse = module.exports.parse = (bytes) => {
     bytes.writeUInt16BE(0);
     const realChecksum = NetChecksum.raw(bytes);
     bytes.writeUInt16BE(checksum);
+    let endian = 'little';
     if (realChecksum !== checksum) {
-        throw new Error("invalid checksum, expected [" + realChecksum + "] got [" + checksum + "]");
+        if (realChecksum === ((checksum << 8 & 0xff00) | (checksum >>> 8 & 0xff))) {
+            endian = 'big';
+        } else {
+            throw new Error(
+                "invalid checksum, expected [" + realChecksum + "] got [" + checksum + "]");
+        }
     }
     const type = typeString(bytes.readUInt16BE(2));
     const content = bytes.slice(4);
+    let out;
     switch (type) {
-        case 'ERROR': return ErrMsg.parse(content);
+        case 'ERROR': out = ErrMsg.parse(content); break;
         case 'PING':
         case 'PONG':
         case 'KEYPING':
-        case 'KEYPONG': return Ping.parse(content, type);
+        case 'KEYPONG': out = Ping.parse(content, type); break;
         default: throw new Error("could not parse, unknown type CTRL packet " + type);
     }
+    out.endian = endian;
+    return out;
 };
 
 const serialize = module.exports.serialize = (obj) => {
