@@ -23,7 +23,8 @@ const GOLDS = [
         parsed: {
             type: 'PING',
             version: 18,
-            content: new Buffer("4d160b1eee2929e12e19a3b1", "hex")
+            content: new Buffer("4d160b1eee2929e12e19a3b1", "hex"),
+            endian: 'little'
         }
     },
     {
@@ -31,7 +32,8 @@ const GOLDS = [
         parsed: {
             type: 'PONG',
             version: 18,
-            content: new Buffer("80534c66df69e44b496d5bc8", "hex")
+            content: new Buffer("80534c66df69e44b496d5bc8", "hex"),
+            endian: 'little'
         }
     },
     {
@@ -42,7 +44,8 @@ const GOLDS = [
             type: 'KEYPING',
             version: 18,
             key: '3fdqgz2vtqb0wx02hhvx3wjmjqktyt567fcuvj3m72vw5u6ubu70.k',
-            content: new Buffer("02e29842b42aedb6bce2ead3", "hex")
+            content: new Buffer("02e29842b42aedb6bce2ead3", "hex"),
+            endian: 'little'
         }
     },
     {
@@ -53,7 +56,8 @@ const GOLDS = [
             type: 'KEYPONG',
             version: 18,
             key: 'cmnkylz1dx8mx3bdxku80yw20gqmg0s9nsrusdv0psnxnfhqfmu0.k',
-            content: new Buffer("02e29842b42aedb6bce2ead3", "hex")
+            content: new Buffer("02e29842b42aedb6bce2ead3", "hex"),
+            endian: 'little'
         }
     },
     {
@@ -77,7 +81,8 @@ const GOLDS = [
             additional: new Buffer(
                 "000006c378e071c46aefad3aa295fff396371d10678e9833807de083a4a40da3" +
                 "9bf0f68f15c4380afbe92405196242a74bb304a8285088579f94fb01867be217" +
-                "1aa8d2c7b54198a89bbdb80c668e9c05", "hex")
+                "1aa8d2c7b54198a89bbdb80c668e9c05", "hex"),
+            endian: 'little'
         }
     }
 ];
