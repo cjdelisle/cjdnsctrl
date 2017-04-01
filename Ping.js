@@ -1,4 +1,4 @@
-/* vim: set expandtab ts=4 sw=4: */
+/*@flow*/
 /*
  * You may redistribute this program and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation,
@@ -44,26 +44,37 @@ const TYPES = {
     }
 };
 
-const parse = module.exports.parse = (buf, type) => {
-    const out = {
-        type: type,
-        version: buf.readUInt32BE(4)
-    };
-    const magic = buf.readUInt32BE();
+/*::
+export type Ping_Type_t = "PING"|"PONG"|"KEYPING"|"KEYPONG";
+export type Ping_t = {
+    type: Ping_Type_t,
+    version: number,
+    key: ?string,
+    content: Buffer
+};
+*/
+
+const parse = module.exports.parse = (buf /*:Buffer*/, type /*:Ping_Type_t*/) /*:Ping_t*/ => {
+    const magic = buf.readUInt32BE(0);
     if (magic !== TYPES[type].magic) {
         throw new Error("invalid magic [" + magic.toString(16) + "] expected [" +
             TYPES[type].magic.toString(16) + "] for type [" + type + "]");
     }
     let remainder = buf.slice(8);
+    let key;
     if (type.indexOf('KEY') === 0) {
-        out.key = Cjdnskeys.keyBytesToString(remainder.slice(0, 32));
+        key = Cjdnskeys.keyBytesToString(remainder.slice(0, 32));
         remainder = remainder.slice(32);
     }
-    out.content = remainder;
-    return out;
+    return {
+        type: type,
+        version: buf.readUInt32BE(4),
+        key: key,
+        content: remainder
+    };
 };
 
-const serialize = module.exports.serialize = (obj) => {
+const serialize = module.exports.serialize = (obj /*:Ping_t*/) => {
     if (!(obj.type in TYPES)) { throw new Error("type not recognized " + obj.type); }
     const typedata = TYPES[obj.type];
     const version = obj.version;
@@ -72,7 +83,10 @@ const serialize = module.exports.serialize = (obj) => {
         Common.uint32Buff(typedata.magic),
         Common.uint32Buff(version)
     ];
-    if (obj.type.indexOf('KEY') === 0) { out.push(Cjdnskeys.keyStringToBytes(obj.key)); }
+    if (obj.type.indexOf('KEY') === 0) {
+        if (!obj.key) { throw new Error("type is KEY but there is no key specified"); }
+        out.push(Cjdnskeys.keyStringToBytes(obj.key));
+    }
     out.push(obj.content);
     return Buffer.concat(out);
 };

@@ -1,4 +1,4 @@
-/* vim: set expandtab ts=4 sw=4: */
+/*@flow*/
 /*
  * You may redistribute this program and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation,
@@ -59,32 +59,49 @@ ERROR_C_STR.split('\n').forEach((x) => {
     x.replace(/^#define Error_([^ ]*) *([0-9]*)$/, (all, x, y) => {
         ERRORS[x] = y;
         RERRORS[y] = x;
+        return '';
     });
 });
 
-const typeNum = module.exports.typeNum = (e) => ( ERRORS[e] || ERRORS[RERRORS[e]] );
-const typeString = module.exports.typeString = (e) => ( RERRORS[e] || RERRORS[ERRORS[e]] );
+const typeNum = module.exports.typeNum =
+    (e /*:string|number*/) => ( ERRORS[e] || ERRORS[RERRORS[e]] );
+const typeString = module.exports.typeString =
+    (e /*:string|number*/) => ( RERRORS[e] || RERRORS[ERRORS[e]] );
 
-const parse = module.exports.parse = (buf) => {
-    const type = buf.readUInt32BE();
+/*::
+import type { Cjdnshdr_SwitchHeader_t } from 'cjdnshdr'
+export type ErrMsg_t = {
+    type: 'ERROR',
+    errType: string,
+    switchHeader: ?Cjdnshdr_SwitchHeader_t,
+    nonce: ?number,
+    additional: ?Buffer
+};
+*/
+
+const parse = module.exports.parse = (buf /*:Buffer*/) /*:ErrMsg_t*/ => {
+    const type = buf.readUInt32BE(0);
     let additional = buf.slice(4);
     const out = {
         type: 'ERROR',
-        errType: typeString(type) || ('unknown: ' + type)
+        errType: typeString(type) || ('unknown: ' + type),
+        switchHeader: undefined,
+        nonce: undefined,
+        additional: undefined
     };
     if (additional.length >= Cjdnshdr.SwitchHeader.SIZE) {
         out.switchHeader = Cjdnshdr.SwitchHeader.parse(additional);
         additional = additional.slice(Cjdnshdr.SwitchHeader.SIZE);
     }
     if (additional.length > 4) {
-        out.nonce = additional.readUInt32BE();
+        out.nonce = additional.readUInt32BE(0);
         additional = additional.slice(4);
     }
     out.additional = additional;
     return out;
 };
 
-const serialize = module.exports.serialize = (obj) => {
+const serialize = module.exports.serialize = (obj /*:ErrMsg_t*/) => {
     const result = [ ];
     if (obj.type !== 'ERROR') { throw new Error("obj not of type ERROR, it's " + obj.type); }
     const typeN = typeNum(obj.errType);

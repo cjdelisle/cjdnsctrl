@@ -1,4 +1,4 @@
-/* vim: set expandtab ts=4 sw=4: */
+/*@flow*/
 /*
  * You may redistribute this program and/or modify it under the terms of
  * the GNU General Public License as published by the Free Software Foundation,
@@ -14,14 +14,14 @@
  */
 'use strict';
 
-const uint32Buff = module.exports.uint32Buff = (num) => {
+const uint32Buff = module.exports.uint32Buff = (num /*:number*/) => {
     const b = new Buffer(4);
-    b.writeUInt32BE(num);
+    b.writeUInt32BE(num, 0);
     return b;
 };
 
-const uint16Buff = module.exports.uint16Buff = (num) => {
+const uint16Buff = module.exports.uint16Buff = (num /*:number*/) => {
     const b = new Buffer(2);
-    b.writeUInt16BE(num);
+    b.writeUInt16BE(num, 0);
     return b;
 };

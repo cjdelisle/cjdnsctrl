@@ -8,9 +8,9 @@
     },
     "license": "GPL-3.0+",
     "dependencies": {
-        "cjdnshdr": "~0.2.3",
-        "cjdnskeys": "~0.1.1",
-        "netchecksum": "~0.0.1"
+        "cjdnshdr": "^0.2.4",
+        "cjdnskeys": "^0.1.4",
+        "netchecksum": "^0.0.1"
     },
     "devDependencies": {
         "jshint": "~2.9.4"
