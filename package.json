@@ -1,23 +1,24 @@
 {
-    "name": "cjdnsctrl",
-    "description": "tools for parsing and serializing cjdns low level CTRL messages",
-    "version": "0.0.3",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/cjdelisle/cjdnsctrl.git"
-    },
-    "license": "GPL-3.0+",
-    "dependencies": {
-        "cjdnshdr": "^0.2.4",
-        "cjdnskeys": "^0.1.4",
-        "netchecksum": "^0.0.1"
-    },
-    "devDependencies": {
-        "jshint": "~2.9.4"
-    },
-    "scripts": {
-        "lint": "jshint --verbose --config .jshintrc --exclude-path .jshintignore .",
-        "test": "node test",
-        "flow": "./node_modules/.bin/flow"
-    }
+  "name": "cjdnsctrl",
+  "description": "tools for parsing and serializing cjdns low level CTRL messages",
+  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cjdelisle/cjdnsctrl.git"
+  },
+  "license": "GPL-3.0+",
+  "dependencies": {
+    "cjdnshdr": "^0.2.4",
+    "cjdnskeys": "^0.1.4",
+    "netchecksum": "^0.0.1"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.42.0",
+    "jshint": "~2.9.4"
+  },
+  "scripts": {
+    "lint": "jshint --verbose --config .jshintrc --exclude-path .jshintignore .",
+    "test": "node test",
+    "flow": "./node_modules/.bin/flow"
+  }
 }
