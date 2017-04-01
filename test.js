@@ -23,6 +23,7 @@ const GOLDS = [
         parsed: {
             type: 'PING',
             version: 18,
+            key: undefined,
             content: new Buffer("4d160b1eee2929e12e19a3b1", "hex"),
             endian: 'little'
         }
@@ -32,6 +33,7 @@ const GOLDS = [
         parsed: {
             type: 'PONG',
             version: 18,
+            key: undefined,
             content: new Buffer("80534c66df69e44b496d5bc8", "hex"),
             endian: 'little'
         }
