@@ -1,7 +1,7 @@
 {
     "name": "cjdnsctrl",
     "description": "tools for parsing and serializing cjdns low level CTRL messages",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "repository": {
         "type": "git",
         "url": "https://github.com/cjdelisle/cjdnsctrl.git"
