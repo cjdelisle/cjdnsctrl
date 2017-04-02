@@ -75,7 +75,7 @@ export type ErrMsg_t = {
     errType: string,
     switchHeader: ?Cjdnshdr_SwitchHeader_t,
     nonce: ?number,
-    additional: ?Buffer
+    additional: Buffer
 };
 */
 
@@ -87,7 +87,7 @@ const parse = module.exports.parse = (buf /*:Buffer*/) /*:ErrMsg_t*/ => {
         errType: typeString(type) || ('unknown: ' + type),
         switchHeader: undefined,
         nonce: undefined,
-        additional: undefined
+        additional: additional
     };
     if (additional.length >= Cjdnshdr.SwitchHeader.SIZE) {
         out.switchHeader = Cjdnshdr.SwitchHeader.parse(additional);
