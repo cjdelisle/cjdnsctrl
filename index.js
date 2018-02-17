@@ -24,7 +24,9 @@ const TYPE = {
     'PING': 3,
     'PONG': 4,
     'KEYPING': 5,
-    'KEYPONG': 6
+    'KEYPONG': 6,
+    'GETSNODEQ': 7,
+    'GETSNODER': 8,
 };
 const RTYPE = {};
 for (const t in TYPE) { RTYPE[TYPE[t]] = t; }
@@ -90,7 +92,7 @@ const serialize = module.exports.serialize = (obj /*:Cjdnsctrl_t*/) => {
         case 'PING':
         case 'PONG':
         case 'KEYPING':
-        case 'KEYPONG': out.push(Ping.serialize(obj, obj.type)); break;
+        case 'KEYPONG': out.push(Ping.serialize(obj)); break;
         default: throw new Error("unreachable");
     }
     const b = Buffer.concat(out);

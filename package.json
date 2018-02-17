@@ -1,19 +1,19 @@
 {
   "name": "cjdnsctrl",
   "description": "tools for parsing and serializing cjdns low level CTRL messages",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/cjdelisle/cjdnsctrl.git"
   },
   "license": "GPL-3.0+",
   "dependencies": {
-    "cjdnshdr": "^0.2.4",
-    "cjdnskeys": "^0.1.4",
-    "netchecksum": "^0.0.1"
+    "cjdnshdr": "^0.2.5",
+    "cjdnskeys": "^0.1.5",
+    "netchecksum": "0.0.1"
   },
   "devDependencies": {
-    "flow-bin": "^0.42.0",
+    "flow-bin": "^0.62.0",
     "jshint": "~2.9.4"
   },
   "scripts": {
